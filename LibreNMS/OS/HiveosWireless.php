@@ -180,42 +180,19 @@ class HiveosWireless extends OS implements
      * The MIB claims that the syntax for these is Counter64, but an snmpwalk returns Counter32.
      * In my implementation I have modified the MIB to get this to work.
      */
-    public function pollWirelessUtilization()
+    public function discoverWirelessErrorRate()
     {
-        $wifi0txairtime = snmp_get($this->getDeviceArray(), '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.22.7', '-Ovq');
-        $wifi0rxairtime = snmp_get($this->getDeviceArray(), '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.23.7', '-Ovq');
-        if (is_numeric($wifi0txairtime)) {
-            $rrd_def = RrdDefinition::make()
-                ->addDataset('wifi0txairtime', 'COUNTER', 0)
-                ->addDataset('wifi0rxairtime', 'COUNTER', 0);
+        $wifi0txairtime = '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.22.7';
+        $wifi0rxairtime = '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.23.7';
+        $wifi1txairtime = '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.22.8';
+        $wifi1rxairtime = '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.23.8';
+        
+        return [
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi0txairtime, 'hiveos-wireless', $index, 'Wifi0 Tx Airtime',,1,10000),
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi0rxairtime, 'hiveos-wireless', $index, 'Wifi0 Rx Airtime',,1,10000),
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi1txairtime, 'hiveos-wireless', $index, 'Wifi1 Tx Airtime',,1,10000),
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi1rxairtime, 'hiveos-wireless', $index, 'Wifi1 Rx Airtime',,1,10000),
+        ];
 
-            echo "TX Airtime: $wifi0txairtime\n RX Airtime: $wifi0rxairtime\n";
-            $fields = [
-                'wifi0txairtime' => $wifi0txairtime,
-                'wifi0rxairtime' => $wifi0rxairtime,
-            ];
-
-            $tags = compact('rrd_def');
-            app()->make('Datastore')->put($this->getDeviceArray(), 'ahradio_wifi0_airtime', $tags, $fields);
-            $this->enableGraph('wireless_utilization');
-        }
-
-        $wifi1txairtime = snmp_get($this->getDeviceArray(), '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.22.8', '-Ovq');
-        $wifi1rxairtime = snmp_get($this->getDeviceArray(), '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.23.8', '-Ovq');
-        if (is_numeric($wifi1txairtime)) {
-            $rrd_def = RrdDefinition::make()
-                ->addDataset('wifi1txairtime', 'COUNTER', 0)
-                ->addDataset('wifi1rxairtime', 'COUNTER', 0);
-
-            echo "TX Airtime: $wifi1txairtime\n RX Airtime: $wifi1rxairtime\n";
-            $fields = [
-                'wifi1txairtime' => $wifi1txairtime,
-                'wifi1rxairtime' => $wifi1rxairtime,
-            ];
-
-            $tags = compact('rrd_def');
-            app()->make('Datastore')->put($this->getDeviceArray(), 'ahradio_wifi1_airtime', $tags, $fields);
-            $this->enableGraph('wireless_utilization');
-        }
     }
 }
