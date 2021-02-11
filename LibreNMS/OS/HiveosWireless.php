@@ -202,7 +202,7 @@ class HiveosWireless extends OS implements
 
         $wifi1txairtime = snmp_get($this->getDeviceArray(), '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.22.8', '-Ovq');
         $wifi1rxairtime = snmp_get($this->getDeviceArray(), '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.23.8', '-Ovq');
-        if (is_numeric($wifi1txairtime)) {f
+        if (is_numeric($wifi1txairtime)) {
             $rrd_def = RrdDefinition::make()
                 ->addDataset('wifi1txairtime', 'COUNTER', 0)
                 ->addDataset('wifi1rxairtime', 'COUNTER', 0);
