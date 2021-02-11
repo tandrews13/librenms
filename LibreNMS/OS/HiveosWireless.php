@@ -31,9 +31,9 @@ use LibreNMS\Interfaces\Discovery\Sensors\WirelessClientsDiscovery;
 use LibreNMS\Interfaces\Discovery\Sensors\WirelessFrequencyDiscovery;
 use LibreNMS\Interfaces\Discovery\Sensors\WirelessNoiseFloorDiscovery;
 use LibreNMS\Interfaces\Discovery\Sensors\WirelessPowerDiscovery;
+use LibreNMS\Interfaces\Discovery\Sensors\WirelessErrorRateDiscovery;
 use LibreNMS\Interfaces\Polling\Sensors\WirelessFrequencyPolling;
 use LibreNMS\Interfaces\Polling\Sensors\WirelessNoiseFloorPolling;
-use LibreNMS\Interfaces\Polling\Sensors\WirelessUtilizationPolling;
 use LibreNMS\OS;
 
 class HiveosWireless extends OS implements
@@ -43,7 +43,7 @@ class HiveosWireless extends OS implements
     WirelessNoiseFloorDiscovery,
     WirelessNoiseFloorPolling,
     WirelessPowerDiscovery,
-    WirelessUtilizationPolling,
+    WirelessErrorRateDiscovery,
     ProcessorDiscovery
 {
     /**
