@@ -188,10 +188,10 @@ class HiveosWireless extends OS implements
         $wifi1rxairtime = '.1.3.6.1.4.1.26928.1.1.1.2.1.3.1.23.8';
         
         return [
-            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi0txairtime, 'hiveos-wireless', $index, 'Wifi0 Tx Airtime',,1,10000),
-            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi0rxairtime, 'hiveos-wireless', $index, 'Wifi0 Rx Airtime',,1,10000),
-            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi1txairtime, 'hiveos-wireless', $index, 'Wifi1 Tx Airtime',,1,10000),
-            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi1rxairtime, 'hiveos-wireless', $index, 'Wifi1 Rx Airtime',,1,10000),
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi0txairtime, 'hiveos-wireless', $index, 'Wifi0 Tx Airtime',1,10000),
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi0rxairtime, 'hiveos-wireless', $index, 'Wifi0 Rx Airtime',1,10000),
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi1txairtime, 'hiveos-wireless', $index, 'Wifi1 Tx Airtime',1,10000),
+            new WirelessSensor('error-rate', $this->getDeviceId(), $wifi1rxairtime, 'hiveos-wireless', $index, 'Wifi1 Rx Airtime',1,10000),
         ];
 
     }
